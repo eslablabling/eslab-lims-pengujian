@@ -1,0 +1,372 @@
+<?php
+
+namespace Database\Seeders;
+
+use Illuminate\Database\Seeder;
+use App\Models\User;
+use App\Models\Profile;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\DB;
+
+class AdminSeeder extends Seeder
+{
+    public function run(): void
+    {
+        // 1. Pembersihan Akun Master / Legacy Lama yang Tidak Resmi
+        $oldUsers = User::where(function($query) {
+            $query->where('email', 'LIKE', '%@envirotama%')
+                  ->orWhere('email', 'LIKE', '%@lab.id%')
+                  ->orWhere('email', 'LIKE', '%@kalibrasi%')
+                  ->orWhere('email', 'LIKE', '%@eslab.com%');
+        })
+        ->where('username', '!=', 'admin_.master')
+        ->get();
+
+        foreach ($oldUsers as $u) {
+            Profile::where('user_id', $u->id)->delete();
+            $u->delete();
+        }
+
+        // 2. Daftar 23 Pengguna Resmi PT Envirotama Solusindo Berdasarkan Struktur Organisasi (Form-ES-5.1/Rev.03)
+        // Note: Seluruh email disamakan dengan username (TANPA @eslab.com)
+        $usersData = [
+            [
+                'username' => 'admin_.master',
+                'email' => 'admin_.master',
+                'name' => 'Master Developer Account',
+                'password' => 'admin123',
+                'role' => 'admin_master',
+                'role_code' => 'admin_master',
+                'role_label' => 'Admin Master',
+                'can_access_kalibrasi' => true,
+                'can_access_pengujian' => true,
+                'can_access_hris' => true,
+                'can_view_harga' => true,
+            ],
+            [
+                'username' => 'hery.kusworo',
+                'email' => 'hery.kusworo',
+                'name' => 'Hery Kusworo',
+                'password' => 'hery.123?',
+                'role' => 'manager',
+                'role_code' => 'gm',
+                'role_label' => 'General Manager & Product Specialist',
+                'can_access_kalibrasi' => true,
+                'can_access_pengujian' => true,
+                'can_access_hris' => true,
+                'can_view_harga' => true,
+            ],
+            [
+                'username' => 'martha.gultom',
+                'email' => 'martha.gultom',
+                'name' => 'Martha Gitavani Gultom',
+                'password' => 'marth123?',
+                'role' => 'admin_ts',
+                'role_code' => 'hrgs_specialist',
+                'role_label' => 'HR & GS Specialist / Purchasing Staff',
+                'can_access_kalibrasi' => true,
+                'can_access_pengujian' => true,
+                'can_access_hris' => true,
+                'can_view_harga' => false,
+            ],
+            [
+                'username' => 'anggi.setiawan',
+                'email' => 'anggi.setiawan',
+                'name' => 'Anggi Setiawan',
+                'password' => 'anggi123?',
+                'role' => 'sampling',
+                'role_code' => 'gs_staff',
+                'role_label' => 'GS Staff',
+                'can_access_kalibrasi' => true,
+                'can_access_pengujian' => true,
+                'can_access_hris' => true,
+                'can_view_harga' => false,
+            ],
+            [
+                'username' => 'achmad.syafii',
+                'email' => 'achmad.syafii',
+                'name' => 'Achmad Syafi\'i',
+                'password' => 'achma123?',
+                'role' => 'sampling',
+                'role_code' => 'gs_staff',
+                'role_label' => 'GS Staff',
+                'can_access_kalibrasi' => true,
+                'can_access_pengujian' => true,
+                'can_access_hris' => true,
+                'can_view_harga' => false,
+            ],
+            [
+                'username' => 'siti.solihat',
+                'email' => 'siti.solihat',
+                'name' => 'Siti Solihat Jam\'a Dinniyah',
+                'password' => 'siti.123?',
+                'role' => 'admin_ts',
+                'role_code' => 'qms_staff',
+                'role_label' => 'QMS Staff (Mutu)',
+                'can_access_kalibrasi' => true,
+                'can_access_pengujian' => true,
+                'can_access_hris' => true,
+                'can_view_harga' => true,
+            ],
+            [
+                'username' => 'ferry.ferdyansyah',
+                'email' => 'ferry.ferdyansyah',
+                'name' => 'Ferry Ferdyansyah',
+                'password' => 'ferry123?',
+                'role' => 'manager',
+                'role_code' => 'manager_kalibrasi',
+                'role_label' => 'Manager Lab Kalibrasi & Pengujian Mekanik',
+                'can_access_kalibrasi' => true,
+                'can_access_pengujian' => false,
+                'can_access_hris' => true,
+                'can_view_harga' => false,
+            ],
+            [
+                'username' => 'andi.fadhlurrahman',
+                'email' => 'andi.fadhlurrahman',
+                'name' => 'Andi Fadhlurrahman',
+                'password' => 'andi.123?',
+                'role' => 'sampling',
+                'role_code' => 'teknisi_kalibrasi',
+                'role_label' => 'Teknisi Kalibrasi',
+                'can_access_kalibrasi' => true,
+                'can_access_pengujian' => false,
+                'can_access_hris' => true,
+                'can_view_harga' => false,
+            ],
+            [
+                'username' => 'ramlan.akbari',
+                'email' => 'ramlan.akbari',
+                'name' => 'Ramlan Akbari',
+                'password' => 'ramla123?',
+                'role' => 'sampling',
+                'role_code' => 'teknisi_kalibrasi',
+                'role_label' => 'Teknisi Kalibrasi',
+                'can_access_kalibrasi' => true,
+                'can_access_pengujian' => false,
+                'can_access_hris' => true,
+                'can_view_harga' => false,
+            ],
+            [
+                'username' => 'barron.maksalmina',
+                'email' => 'barron.maksalmina',
+                'name' => 'M Barron Maksalmina',
+                'password' => 'barro123?',
+                'role' => 'sampling',
+                'role_code' => 'teknisi_kalibrasi',
+                'role_label' => 'Teknisi Kalibrasi',
+                'can_access_kalibrasi' => true,
+                'can_access_pengujian' => false,
+                'can_access_hris' => true,
+                'can_view_harga' => false,
+            ],
+            [
+                'username' => 'salman.alfarizi',
+                'email' => 'salman.alfarizi',
+                'name' => 'Muhammad Salman Al Farizi',
+                'password' => 'salma123?',
+                'role' => 'sampling',
+                'role_code' => 'teknisi_kalibrasi',
+                'role_label' => 'Teknisi Kalibrasi',
+                'can_access_kalibrasi' => true,
+                'can_access_pengujian' => false,
+                'can_access_hris' => true,
+                'can_view_harga' => false,
+            ],
+            [
+                'username' => 'wilda.hanifa',
+                'email' => 'wilda.hanifa',
+                'name' => 'Wilda Hanifa',
+                'password' => 'wilda123?',
+                'role' => 'admin_ts',
+                'role_code' => 'admin_kalibrasi',
+                'role_label' => 'Admin Lab Kalibrasi',
+                'can_access_kalibrasi' => true,
+                'can_access_pengujian' => false,
+                'can_access_hris' => true,
+                'can_view_harga' => false,
+            ],
+            [
+                'username' => 'disa.aisha',
+                'email' => 'disa.aisha',
+                'name' => 'Disa Aisha Mutmainah',
+                'password' => 'disa.123?',
+                'role' => 'admin_ts',
+                'role_code' => 'lab_support',
+                'role_label' => 'Lab Support Staff',
+                'can_access_kalibrasi' => true,
+                'can_access_pengujian' => false,
+                'can_access_hris' => true,
+                'can_view_harga' => false,
+            ],
+            [
+                'username' => 'fadhel.verdino',
+                'email' => 'fadhel.verdino',
+                'name' => 'Fadhel Verdino',
+                'password' => 'fadhe123?',
+                'role' => 'manager',
+                'role_code' => 'manager_lingkungan',
+                'role_label' => 'Manager Lab Lingkungan',
+                'can_access_kalibrasi' => false,
+                'can_access_pengujian' => true,
+                'can_access_hris' => true,
+                'can_view_harga' => false,
+            ],
+            [
+                'username' => 'muhammad.rifai',
+                'email' => 'muhammad.rifai',
+                'name' => 'Muhammad Rifai\'i',
+                'password' => 'muham123?',
+                'role' => 'manager',
+                'role_code' => 'penyelia_lingkungan',
+                'role_label' => 'Penyelia Lab Lingkungan',
+                'can_access_kalibrasi' => false,
+                'can_access_pengujian' => true,
+                'can_access_hris' => true,
+                'can_view_harga' => false,
+            ],
+            [
+                'username' => 'faris.rasyiq',
+                'email' => 'faris.rasyiq',
+                'name' => 'Faris Rasyiq Albar Niandra',
+                'password' => 'faris123?',
+                'role' => 'analis',
+                'role_code' => 'analis_lingkungan',
+                'role_label' => 'Analis Lab Lingkungan',
+                'can_access_kalibrasi' => false,
+                'can_access_pengujian' => true,
+                'can_access_hris' => true,
+                'can_view_harga' => false,
+            ],
+            [
+                'username' => 'kartika.dwi',
+                'email' => 'kartika.dwi',
+                'name' => 'Kartika Dwi Wahyuningrum',
+                'password' => 'karti123?',
+                'role' => 'admin_ts',
+                'role_code' => 'admin_lingkungan',
+                'role_label' => 'Admin Lab Lingkungan',
+                'can_access_kalibrasi' => false,
+                'can_access_pengujian' => true,
+                'can_access_hris' => true,
+                'can_view_harga' => false,
+            ],
+            [
+                'username' => 'rahmad.gunawan',
+                'email' => 'rahmad.gunawan',
+                'name' => 'Rahmad Gunawan',
+                'password' => 'rahma123?',
+                'role' => 'sampling',
+                'role_code' => 'petugas_sampling',
+                'role_label' => 'Petugas Sampling',
+                'can_access_kalibrasi' => false,
+                'can_access_pengujian' => true,
+                'can_access_hris' => true,
+                'can_view_harga' => false,
+            ],
+            [
+                'username' => 'krisna.hadi',
+                'email' => 'krisna.hadi',
+                'name' => 'Krisna Hadi Sunjaya',
+                'password' => 'krisn123?',
+                'role' => 'sampling',
+                'role_code' => 'petugas_sampling',
+                'role_label' => 'Petugas Sampling',
+                'can_access_kalibrasi' => false,
+                'can_access_pengujian' => true,
+                'can_access_hris' => true,
+                'can_view_harga' => false,
+            ],
+            [
+                'username' => 'dely.ika',
+                'email' => 'dely.ika',
+                'name' => 'Dely Ika Romawati',
+                'password' => 'dely.123?',
+                'role' => 'admin_ts',
+                'role_code' => 'sales_marketing',
+                'role_label' => 'Sales & Marketing Staff',
+                'can_access_kalibrasi' => true,
+                'can_access_pengujian' => true,
+                'can_access_hris' => true,
+                'can_view_harga' => true,
+            ],
+            [
+                'username' => 'fitrah.yasinta',
+                'email' => 'fitrah.yasinta',
+                'name' => 'Fitrah Yasinta',
+                'password' => 'fitra123?',
+                'role' => 'admin_ts',
+                'role_code' => 'sales_marketing',
+                'role_label' => 'Sales & Marketing Staff',
+                'can_access_kalibrasi' => true,
+                'can_access_pengujian' => true,
+                'can_access_hris' => true,
+                'can_view_harga' => true,
+            ],
+            [
+                'username' => 'dwi.yuda',
+                'email' => 'dwi.yuda',
+                'name' => 'Dwi Yuda Wardana',
+                'password' => 'dwi.y123?',
+                'role' => 'admin_ts',
+                'role_code' => 'finance_staff',
+                'role_label' => 'Finance Staff',
+                'can_access_kalibrasi' => true,
+                'can_access_pengujian' => true,
+                'can_access_hris' => true,
+                'can_view_harga' => true,
+            ],
+            [
+                'username' => 'annisa.febryana',
+                'email' => 'annisa.febryana',
+                'name' => 'Annisa Febryana Pratiwi',
+                'password' => 'annis123?',
+                'role' => 'admin_ts',
+                'role_code' => 'finance_staff',
+                'role_label' => 'Finance Staff',
+                'can_access_kalibrasi' => true,
+                'can_access_pengujian' => true,
+                'can_access_hris' => true,
+                'can_view_harga' => true,
+            ],
+        ];
+
+        foreach ($usersData as $uData) {
+            $user = User::updateOrCreate(
+                ['username' => $uData['username']],
+                [
+                    'email'                => $uData['email'],
+                    'name'                 => $uData['name'],
+                    'username'             => $uData['username'],
+                    'role'                 => $uData['role'],
+                    'role_code'            => $uData['role_code'],
+                    'can_access_kalibrasi' => $uData['can_access_kalibrasi'],
+                    'can_access_pengujian' => $uData['can_access_pengujian'],
+                    'can_access_hris'      => $uData['can_access_hris'],
+                    'can_view_harga'       => $uData['can_view_harga'],
+                    'password'             => Hash::make($uData['password']),
+                ]
+            );
+
+            Profile::updateOrCreate(
+                ['user_id' => $user->id],
+                [
+                    'full_name'            => $uData['name'],
+                    'username'             => $uData['username'],
+                    'role'                 => $uData['role'],
+                    'role_code'            => $uData['role_code'],
+                    'can_access_kalibrasi' => $uData['can_access_kalibrasi'],
+                    'can_access_pengujian' => $uData['can_access_pengujian'],
+                    'can_access_hris'      => $uData['can_access_hris'],
+                    'can_view_harga'       => $uData['can_view_harga'],
+                    'plain_password'       => $uData['password'],
+                    'is_active'            => true,
+                    'status_karyawan'      => 'aktif',
+                ]
+            );
+        }
+
+        $this->command->info('✅ Berhasil menyemaikan 23 Akun Resmi PT Envirotama Solusindo TANPA domain @eslab.com.');
+        $this->command->info('👑 Akun Master Admin: admin_.master (password: admin123)');
+    }
+}

@@ -1,0 +1,386 @@
+<?php
+
+namespace Database\Seeders;
+
+use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
+use App\Models\CocEmisi;
+use App\Models\Sample;
+
+class CocEmisiSeeder extends Seeder
+{
+    public function run(): void
+    {
+        $json = <<<'JSON'
+[
+  {
+    "nomor_coc": "ES-COC26060005",
+    "company_name": "PT PETROKIMIA GRESIK",
+    "company_address": "Jl. Jenderal Ahmad Yani, Kabupaten Gresik, Jawa Timur 61119",
+    "contact_person": "Bapak Budi Prasetyo",
+    "email_coa": "info@cems.co.id",
+    "phone_no": "0852-1116-0780",
+    "qt_no": "0005/QT-ES/VI/2026",
+    "tat_requested": "Normal",
+    "sampling_officer": "Rahmad Gunawan, Krisna Sunjaya, Muhammad Rifaii",
+    "sampling_date": "2026-06-30",
+    "sampling_location": null,
+    "samples_data": null,
+    "created_at": "2026-07-20 03:45:37",
+    "created_by": 1,
+    "status_sampling": "Verified",
+    "updated_at": "2026-07-21 07:28:33"
+  },
+  {
+    "nomor_coc": "ES-COC26060004",
+    "company_name": "PT ZHONGTSING NEW ENERGY",
+    "company_address": "Jl. Trans Sulawesi, Desa Fatufia, Bahomakmur, Kec. Bahodopi, Kab. Morowali, Sulawesi Tengah 94974",
+    "contact_person": "Bapak Budi Prasetyo",
+    "email_coa": "info@cems.co.id",
+    "phone_no": "0852-1116-0780",
+    "qt_no": "0004/QT-ES/VI/2026",
+    "tat_requested": "Normal",
+    "sampling_officer": "Rahmad Gunawan, Krisna Sunjaya, Muhammad Rifaii",
+    "sampling_date": "2026-06-17",
+    "sampling_location": null,
+    "samples_data": null,
+    "created_at": "2026-07-20 03:18:32",
+    "created_by": 1,
+    "status_sampling": "Verified",
+    "updated_at": "2026-07-24 02:40:37"
+  },
+  {
+    "nomor_coc": "ES-COC26020002",
+    "company_name": "PT MEIWA KOGYO INDONESIA",
+    "company_address": "Kawasan Industri KIIC Jl. Maligi IV Lot. K-1D Kel. Sukaluyu, Telukjambe Timur, Kab. Karawang",
+    "contact_person": "Bapak Veri Juniansah ",
+    "email_coa": "veri@mk-ind.co.id",
+    "phone_no": "087775088127",
+    "qt_no": "0249/QT-ES/II/2026",
+    "tat_requested": "Normal",
+    "sampling_officer": "Rahmad Gunawan, Krisna Sunjaya, Muhammad Rifaii",
+    "sampling_date": "2026-02-18",
+    "sampling_location": null,
+    "samples_data": null,
+    "created_at": "2026-07-20 03:12:39",
+    "created_by": 1,
+    "status_sampling": "Verified",
+    "updated_at": "2026-07-20 07:54:56"
+  },
+  {
+    "nomor_coc": "ES-COC26050003",
+    "company_name": "PT FAJAR SURYA WISESA TBK",
+    "company_address": "Kalijaya, Kec. Cikarang Bar., Kabupaten Bekasi, Jawa Barat 17530",
+    "contact_person": "Pak Ferigo",
+    "email_coa": "-",
+    "phone_no": "081215056094",
+    "qt_no": "0587/QT-ES/V/2026",
+    "tat_requested": "Normal",
+    "sampling_officer": "Rahmad Gunawan, Krisna Sunjaya, Muhammad Rifaii",
+    "sampling_date": "2026-05-18",
+    "sampling_location": null,
+    "samples_data": null,
+    "created_at": "2026-07-20 03:13:38",
+    "created_by": 1,
+    "status_sampling": "Verified",
+    "updated_at": "2026-07-21 08:58:36"
+  },
+  {
+    "nomor_coc": "ES-COC26020001",
+    "company_name": "PT JOTUN INDONESIA",
+    "company_address": "Jl. Irian III Blok KK – 1, Kawasan Industri MM 2100 Kecamatan Cikarang Barat, Kabupaten Bekasi, Jawa Barat",
+    "contact_person": "Bapak Sigit Mahardika",
+    "email_coa": "Sigit Mahardika <sigit.mahardika@jotun.com>",
+    "phone_no": "(021) 8998.2657",
+    "qt_no": "0246/QT-ES/II/2026",
+    "tat_requested": "Normal",
+    "sampling_officer": "Rahmad Gunawan, Krisna Sunjaya, Muhammad Rifai",
+    "sampling_date": "2026-02-09",
+    "sampling_location": null,
+    "samples_data": [
+      {
+        "status": "Done",
+        "temp_gas": "34",
+        "kec_angin": "0.6",
+        "koordinat": "S : 06°18'44.9\" E : 107°05'38.5\"",
+        "sample_id": "0001.1",
+        "waktu_gas": "10:00",
+        "kelembaban": "60.2",
+        "parameters": [
+          {"method": "SNI 7117-21:2021", "parameter": "Volumetric Flow Rate", "konsentrasi_1": "1.47"},
+          {"method": "IKM-ESP-7.2.11 (NDIR)", "parameter": "Nitrogen Dioxide (NO2)", "konsentrasi_1": "0", "konsentrasi_2": "0", "konsentrasi_3": "0"},
+          {"method": "SNI 7117-21:2021", "parameter": "Num of Traverse Point", "show_in_coa": true, "konsentrasi_1": "4"},
+          {"method": "SNI 7117-21:2021", "parameter": "Percent of Isokinetic", "konsentrasi_1": "100.83"},
+          {
+            "method": "SNI 7117-21:2021",
+            "result": "2.75",
+            "qc_data": {"b_a_awal_1": "123.2465", "b_a_awal_2": "123.2465", "b_f_awal_1": "3.4437", "b_f_awal_2": "3.4437", "b_a_akhir_1": "123.2465", "b_a_akhir_2": "123.2465", "b_f_akhir_1": "3.4437", "b_f_akhir_2": "3.4437"},
+            "grav_data": {"s_a_awal_1": "123.2465", "s_a_awal_2": "123.2465", "s_f_awal_1": "3.4367", "s_f_awal_2": "3.4367", "s_a_akhir_1": "123.2465", "s_a_akhir_2": "123.2465", "s_f_akhir_1": "3.4377", "s_f_akhir_2": "3.4377"},
+            "no_filter": "0001.1",
+            "parameter": "Particulate",
+            "volume_meter": "0.3636"
+          },
+          {"method": "SNI 19-7117.11 - 2005", "parameter": "Opacity"},
+          {"method": "IKM-ESP-7.2.18 (NDIR)", "parameter": "Sulfur Dioxide (SO2)", "konsentrasi_1": "0", "konsentrasi_2": "0", "konsentrasi_3": "0"},
+          {"method": "IKM-ESP-7.2.8 (NDIR)", "parameter": "Carbon Monoxide (CO)", "konsentrasi_1": "2", "konsentrasi_2": "2", "konsentrasi_3": "2"},
+          {"method": "IKM-ESP-7.2.15 (NDIR)", "parameter": "Nitrogen Oxide (NOx)", "konsentrasi_1": "5.00", "konsentrasi_2": "5.00", "konsentrasi_3": "5.00"},
+          {"method": "IKM-ESP-7.2.13 (NDIR)", "parameter": "Nitrogen Monoxide (NO)", "konsentrasi_1": "5", "konsentrasi_2": "5", "konsentrasi_3": "5"},
+          {"method": "IKM-ESP-7.2.6 (Paramagnetic)", "parameter": "Oxygen (O2)", "konsentrasi_1": "19.8", "konsentrasi_2": "19.8", "konsentrasi_3": "19.8"},
+          {"method": "IKM-ESP-7.2.9 (NDIR)", "parameter": "Carbon Dioxide (CO2)", "konsentrasi_1": "1.3", "konsentrasi_2": "1.3", "konsentrasi_3": "1.3"},
+          {"method": "SNI 7117-21:2021", "parameter": "Velocity", "konsentrasi_1": "11.78", "konsentrasi_2": "11.6", "konsentrasi_3": "11.6"}
+        ],
+        "status_lab": "verified",
+        "updated_at": "2026-07-17T08:41:09.859Z",
+        "analyzed_at": "2026-07-17T00:00:00.000Z",
+        "bahan_bakar": "Natural Gas",
+        "description": "Cerobong Exhaust Mixing 1",
+        "is_verified": true,
+        "no_alat_gas": "026.1",
+        "regulations": ["KepmenLH 13/1995 Lamp V B Baku Mutu Emisi Jenis Kegiatan Lain", "-"],
+        "tekanan_atm": "760",
+        "temp_ambien": "32.8",
+        "verified_at": "2026-07-17T08:41:20.487Z",
+        "opasitas_avg": "0.00",
+        "tgl_sampling": "2026-02-09",
+        "catatan_cuaca": "Cerah",
+        "nama_cerobong": "Cerobong Exhaust Mixing 1",
+        "kec_angin_awal": "0.6",
+        "opasitas_akhir": "10:06",
+        "opasitas_ket_6": "",
+        "opasitas_mulai": "10:00",
+        "tgl_terima_lab": "2026-07-16",
+        "arah_angin_awal": "Barat",
+        "kec_angin_akhir": "0.6",
+        "kelembaban_awal": "60",
+        "latar_asap_awal": "Biru",
+        "opasitas_matrix": [["0","0","0","0"],["0","0","0","0"],["0","0","0","0"],["0","0","0","0"],["0","0","0","0"],["0","0","0","0"]],
+        "arah_angin_akhir": "Barat",
+        "kelembaban_akhir": "60",
+        "latar_asap_akhir": "Biru",
+        "temp_ambien_awal": "32.8",
+        "warna_emisi_awal": "-",
+        "temp_ambien_akhir": "32.8",
+        "warna_emisi_akhir": "-",
+        "arah_pengamat_awal": "Utara",
+        "arah_pengamat_akhir": "Utara",
+        "jarak_pengamat_awal": "7",
+        "kondisi_langit_awal": "Cerah",
+        "jarak_pengamat_akhir": "7",
+        "kondisi_langit_akhir": "Cerah"
+      },
+      {
+        "status": "Done",
+        "temp_gas": "40.1",
+        "kec_angin": "0.7",
+        "koordinat": "S : 06°18'43.4\" E : 107°05'39.0\"",
+        "sample_id": "0001.2",
+        "waktu_gas": "13:10",
+        "kelembaban": "61.1",
+        "parameters": [
+          {"method": "EPA Method 2 Tahun 2017", "parameter": "Volumetric Flow Rate", "konsentrasi_1": "3.4696"},
+          {"method": "IKM-ESP-7.2.10", "parameter": "Nitrogen Dioxide (NO2)", "konsentrasi_1": "0", "konsentrasi_2": "0", "konsentrasi_3": "0"},
+          {"method": "EPA Method 1 Tahun 2023", "parameter": "Num of Traverse Point", "konsentrasi_1": "8"},
+          {"method": "EPA Method 5 Tahun 2020", "parameter": "Percent of Isokinetic", "konsentrasi_1": "99.3"},
+          {
+            "method": "EPA Method 5 Tahun 2020",
+            "result": "1.64",
+            "qc_data": {"b_c_awal_1": "120.6792", "b_c_awal_2": "120.6792", "b_f_awal_1": "0.4349", "b_f_awal_2": "0.4349", "b_c_akhir_1": "120.6792", "b_c_akhir_2": "120.6792", "b_f_akhir_1": "0.4349", "b_f_akhir_2": "0.4349"},
+            "grav_data": {"s_c_awal_1": "120.6781", "s_c_awal_2": "120.6781", "s_f_awal_1": "0.4389", "s_f_awal_2": "0.4389", "s_c_akhir_1": "120.6783", "s_c_akhir_2": "120.6783", "s_f_akhir_1": "0.4406", "s_f_akhir_2": "0.4406"},
+            "no_filter": "0001.2",
+            "parameter": "Particulate",
+            "volume_meter": "1.16"
+          },
+          {"method": "SNI 19-7117.11 - 2005", "parameter": "Opacity"},
+          {"method": "IKM-ESP-7.2.17", "parameter": "Sulfur Dioxide (SO2)", "konsentrasi_1": "0", "konsentrasi_2": "0", "konsentrasi_3": "0"},
+          {"method": "IKM-ESP-7.2.7", "parameter": "Carbon Monoxide (CO)", "konsentrasi_1": "1", "konsentrasi_2": "1", "konsentrasi_3": "1"},
+          {"method": "IKM-ESP-7.2.14", "parameter": "Nitrogen Oxide (NOx)", "konsentrasi_1": "4.00", "konsentrasi_2": "4.00", "konsentrasi_3": "4.00"},
+          {"method": "IKM-ESP-7.2.12", "parameter": "Nitrogen Monoxide (NO)", "konsentrasi_1": "4", "konsentrasi_2": "4", "konsentrasi_3": "4"},
+          {"method": "IKM-ESP-7.2.5", "parameter": "Oxygen (O2)", "konsentrasi_1": "20.4", "konsentrasi_2": "20.4", "konsentrasi_3": "20.4"},
+          {"method": "IKM-ESP-7.2.5", "parameter": "Carbon Dioxide (CO2)", "konsentrasi_1": "0.4", "konsentrasi_2": "0.4", "konsentrasi_3": "0.4"},
+          {"method": "EPA Method 2 Tahun 2017", "parameter": "Velocity", "konsentrasi_1": "12.3", "konsentrasi_2": "11.9", "konsentrasi_3": "11.9"}
+        ],
+        "status_lab": "verified",
+        "updated_at": "2026-07-16T04:02:18.174Z",
+        "analyzed_at": "2026-02-23T00:00:00.000Z",
+        "bahan_bakar": "Natural Gas",
+        "description": "Cerobong Dust Collector 3",
+        "is_verified": true,
+        "no_alat_gas": "008.1",
+        "regulations": ["KepmenLH 13/1995 Lamp V B Baku Mutu Emisi Jenis Kegiatan Lain", "-"],
+        "tekanan_atm": "759",
+        "temp_ambien": "33.2",
+        "verified_at": "2026-07-16T04:02:41.078Z",
+        "opasitas_avg": "0.00",
+        "tgl_sampling": "2026-02-09",
+        "catatan_cuaca": "Cerah",
+        "nama_cerobong": "Cerobong Dust Collector 3",
+        "kec_angin_awal": "0.7",
+        "opasitas_akhir": "13:16",
+        "opasitas_mulai": "13:10",
+        "tgl_terima_lab": "2026-02-10",
+        "arah_angin_awal": "Barat",
+        "kec_angin_akhir": "0.7",
+        "kelembaban_awal": "61",
+        "latar_asap_awal": "Biru",
+        "opasitas_matrix": [["0","0","0","0"],["0","0","0","0"],["0","0","0","0"],["0","0","0","0"],["0","0","0","0"],["0","0","0","0"]],
+        "arah_angin_akhir": "Barat",
+        "kelembaban_akhir": "61",
+        "latar_asap_akhir": "Biru",
+        "temp_ambien_awal": "33.2",
+        "warna_emisi_awal": "-",
+        "temp_ambien_akhir": "33.2",
+        "warna_emisi_akhir": "-",
+        "arah_pengamat_awal": "Utara",
+        "arah_pengamat_akhir": "Utara",
+        "jarak_pengamat_awal": "7",
+        "kondisi_langit_awal": "Cerah",
+        "jarak_pengamat_akhir": "21",
+        "kondisi_langit_akhir": "Cerah"
+      },
+      {
+        "status": "Done",
+        "temp_gas": "37.1",
+        "kec_angin": "0.5",
+        "koordinat": "S : 06°18'43.1\" E : 107°05'39.0\"",
+        "sample_id": "0001.3",
+        "waktu_gas": "15:30",
+        "kelembaban": "60.2",
+        "parameters": [
+          {"method": "SNI 7117.14:2009", "parameter": "Volumetric Flow Rate", "konsentrasi_1": "0.6831"},
+          {"method": "IKM-ESP-7.2.10", "parameter": "Nitrogen Dioxide (NO2)", "konsentrasi_1": "1", "konsentrasi_2": "1", "konsentrasi_3": "1"},
+          {"method": "SNI 7117.13:2009", "parameter": "Num of Traverse Point", "konsentrasi_1": "8"},
+          {"method": "SNI 7117.17:2009", "parameter": "Percent of Isokinetic", "konsentrasi_1": "108.6"},
+          {
+            "method": "SNI 7117.17:2009",
+            "result": "0.81",
+            "qc_data": {"b_c_awal_1": "120.6792", "b_c_awal_2": "120.6792", "b_f_awal_1": "0.4349", "b_f_awal_2": "0.4349", "b_c_akhir_1": "120.6792", "b_c_akhir_2": "120.6792", "b_f_akhir_1": "0.4349", "b_f_akhir_2": "0.4349"},
+            "grav_data": {"s_c_awal_1": "120.9435", "s_c_awal_2": "120.9435", "s_f_awal_1": "0.4367", "s_f_awal_2": "0.4367", "s_c_akhir_1": "120.9436", "s_c_akhir_2": "120.9436", "s_f_akhir_1": "0.4374", "s_f_akhir_2": "0.4374"},
+            "no_filter": "0001.3",
+            "parameter": "Particulate",
+            "volume_meter": "0.99"
+          },
+          {"method": "SNI 19-7117.11 - 2005", "parameter": "Opacity"},
+          {"method": "IKM-ESP-7.2.17", "parameter": "Sulfur Dioxide (SO2)", "konsentrasi_1": "0", "konsentrasi_2": "0", "konsentrasi_3": "0"},
+          {"method": "IKM-ESP-7.2.7", "parameter": "Carbon Monoxide (CO)", "konsentrasi_1": "1", "konsentrasi_2": "1", "konsentrasi_3": "1"},
+          {"method": "IKM-ESP-7.2.14", "parameter": "Nitrogen Oxide (NOx)", "konsentrasi_1": "6.00", "konsentrasi_2": "6.00", "konsentrasi_3": "6.00"},
+          {"method": "IKM-ESP-7.2.12", "parameter": "Nitrogen Monoxide (NO)", "konsentrasi_1": "5", "konsentrasi_2": "5", "konsentrasi_3": "5"},
+          {"method": "IKM-ESP-7.2.5", "parameter": "Oxygen (O2)", "konsentrasi_1": "20.2", "konsentrasi_2": "20.2", "konsentrasi_3": "20.2"},
+          {"method": "IKM-ESP-7.2.5", "parameter": "Carbon Dioxide (CO2)", "konsentrasi_1": "0.2", "konsentrasi_2": "0.2", "konsentrasi_3": "0.2"},
+          {"method": "SNI 7117.14:2009", "parameter": "Velocity", "konsentrasi_1": "9.7", "konsentrasi_2": "9.5", "konsentrasi_3": "9.5"}
+        ],
+        "status_lab": "verified",
+        "updated_at": "2026-07-16T04:02:30.352Z",
+        "analyzed_at": "2026-02-23T00:00:00.000Z",
+        "bahan_bakar": "Natural Gas",
+        "description": "Cerobong Exhaust Mixing 2",
+        "is_verified": true,
+        "no_alat_gas": "008.1",
+        "regulations": ["KepmenLH 13/1995 Lamp V B Baku Mutu Emisi Jenis Kegiatan Lain", "-"],
+        "tekanan_atm": "759",
+        "temp_ambien": "33.3",
+        "verified_at": "2026-07-16T04:02:43.307Z",
+        "opasitas_avg": "0.00",
+        "tgl_sampling": "2026-02-09",
+        "catatan_cuaca": "Cerah",
+        "nama_cerobong": "Cerobong Exhaust Mixing 2",
+        "kec_angin_awal": "0.5",
+        "opasitas_akhir": "15:36",
+        "opasitas_mulai": "15:30",
+        "tgl_terima_lab": "2026-02-10",
+        "arah_angin_awal": "Barat",
+        "kec_angin_akhir": "0.5",
+        "kelembaban_awal": "60.2",
+        "latar_asap_awal": "Biru",
+        "opasitas_matrix": [["0","0","0","0"],["0","0","0","0"],["0","0","0","0"],["0","0","0","0"],["0","0","0","0"],["0","0","0","0"]],
+        "arah_angin_akhir": "Barat",
+        "kelembaban_akhir": "60.2",
+        "latar_asap_akhir": "Biru",
+        "temp_ambien_awal": "33.2",
+        "warna_emisi_awal": "-",
+        "temp_ambien_akhir": "33.2",
+        "warna_emisi_akhir": "-",
+        "arah_pengamat_awal": "Utara",
+        "arah_pengamat_akhir": "Utara",
+        "jarak_pengamat_awal": "5",
+        "kondisi_langit_awal": "Cerah",
+        "jarak_pengamat_akhir": "15",
+        "kondisi_langit_akhir": "Cerah"
+      }
+    ],
+    "created_at": "2026-03-06 01:23:22",
+    "created_by": 1,
+    "status_sampling": "Verified",
+    "updated_at": "2026-07-20 04:59:30"
+  }
+]
+JSON;
+
+        $cocs = json_decode($json, true);
+
+        foreach ($cocs as $item) {
+            $samplesData = $item['samples_data'];
+            
+            $cocRecord = [
+                'nomor_coc'        => $item['nomor_coc'],
+                'company_name'     => $item['company_name'],
+                'alamat_perusahaan'=> $item['company_address'],
+                'company_address'  => $item['company_address'],
+                'contact_person'   => $item['contact_person'],
+                'no_telepon'       => $item['phone_no'],
+                'phone_no'         => $item['phone_no'],
+                'email_coa'        => $item['email_coa'],
+                'nomor_qt'         => $item['qt_no'],
+                'qt_no'            => $item['qt_no'],
+                'tat_requested'    => $item['tat_requested'],
+                'sampling_officer' => $item['sampling_officer'],
+                'sampling_date'    => $item['sampling_date'],
+                'status_sampling'  => $item['status_sampling'] ?? 'Verified',
+                'status'           => 'Verified',
+                'samples_data'     => $samplesData ? json_encode($samplesData) : null,
+                'created_by'       => 1,
+                'created_at'       => $item['created_at'],
+                'updated_at'       => $item['updated_at'],
+            ];
+
+            // Upsert coc_emisi record
+            $coc = CocEmisi::updateOrCreate(
+                ['nomor_coc' => $item['nomor_coc']],
+                $cocRecord
+            );
+
+            // Populate samples table if samples_data exists
+            if (!empty($samplesData) && is_array($samplesData)) {
+                foreach ($samplesData as $s) {
+                    Sample::updateOrCreate(
+                        [
+                            'coc_id'    => $coc->id,
+                            'sample_id' => $s['sample_id'],
+                        ],
+                        [
+                            'description'   => $s['description'] ?? null,
+                            'nama_cerobong' => $s['nama_cerobong'] ?? ($s['description'] ?? null),
+                            'regulations'   => isset($s['regulations']) ? json_encode($s['regulations']) : null,
+                            'parameters'    => isset($s['parameters']) ? json_encode($s['parameters']) : null,
+                            'status'        => $s['status'] ?? 'Done',
+                            'status_lab'    => $s['status_lab'] ?? 'verified',
+                            'is_verified'   => $s['is_verified'] ?? true,
+                            'tgl_sampling'  => $s['tgl_sampling'] ?? $item['sampling_date'],
+                            'temp_gas'      => $s['temp_gas'] ?? null,
+                            'temp_ambien'   => $s['temp_ambien'] ?? null,
+                            'kelembaban'    => $s['kelembaban'] ?? null,
+                            'kec_angin'     => $s['kec_angin'] ?? null,
+                            'tekanan_atm'   => $s['tekanan_atm'] ?? null,
+                            'koordinat'     => $s['koordinat'] ?? null,
+                            'waktu_gas'     => $s['waktu_gas'] ?? null,
+                            'bahan_bakar'   => $s['bahan_bakar'] ?? null,
+                            'no_alat_gas'   => $s['no_alat_gas'] ?? null,
+                            'opasitas_avg'  => $s['opasitas_avg'] ?? null,
+                            'catatan_cuaca' => $s['catatan_cuaca'] ?? null,
+                        ]
+                    );
+                }
+            }
+        }
+        $this->command->info('✅ Data COC Emisi & Samples berhasil di-seed ke MySQL!');
+    }
+}

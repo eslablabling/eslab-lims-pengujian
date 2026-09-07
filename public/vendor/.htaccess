@@ -1,0 +1,27 @@
+# ----------------------------------------------------------------------
+# ESLab Vendor Assets Optimization (.htaccess)
+# ----------------------------------------------------------------------
+
+# 1. Kompresi Gzip Otomatis untuk Semua File Vendor
+<IfModule mod_deflate.c>
+    SetOutputFilter DEFLATE
+    AddOutputFilterByType DEFLATE application/javascript
+    AddOutputFilterByType DEFLATE application/x-javascript
+    AddOutputFilterByType DEFLATE text/javascript
+    AddOutputFilterByType DEFLATE text/css
+    AddOutputFilterByType DEFLATE font/woff
+    AddOutputFilterByType DEFLATE font/woff2
+    AddOutputFilterByType DEFLATE font/ttf
+    AddOutputFilterByType DEFLATE font/otf
+    AddOutputFilterByType DEFLATE image/svg+xml
+</IfModule>
+
+# 2. Browser Cache Permanen 1 Tahun (Immutable)
+<IfModule mod_expires.c>
+    ExpiresActive On
+    ExpiresDefault "access plus 1 year"
+</IfModule>
+
+<IfModule mod_headers.c>
+    Header set Cache-Control "max-age=31536000, public, immutable"
+</IfModule>
